@@ -82,7 +82,7 @@ app.post('/add', (req, res) => {
         }
 
         let users = JSON.parse(data);
-        newUser.id = users.length + 1; // Antaa uudelle käyttäjälle id:n
+        newUser.id = users.length + 1; // gives unique id
         users.push(newUser);
 
         fs.writeFile(filePath, JSON.stringify(users, null, 2), (err) => {
@@ -94,7 +94,7 @@ app.post('/add', (req, res) => {
     });
 });
 
-// Middleware, x custom header
+// middleware, x custom header
 const checkCustomHeader = (req, res, next) => {
     if (!req.headers['x-custom-header']) {
         return res.status(400).json({ error: "X-Custom-Header is missing" });
@@ -107,9 +107,7 @@ app.get('/secure', checkCustomHeader, (req, res) => {
     res.json({ message: "Secure data accessed!" });
 });
 
-
-
-// Käynnistetään palvelin
+// starting the server
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });
